@@ -64,19 +64,21 @@ I only plan to use this for generative art, but there are some real uses
 for poisson disc sampling. For my purposes, this simple implementation
 works fine, but it could be improved in several ways if you wanted to
 contribute. First, this algorithm is generalizable to any number of
-dimensions, but I’ve only implemented it in 2 dimensions. This is fast
-enough for my purposes, but if you wanted to speed it up you could
-re-write it in Rcpp, as it uses lots of for loops, it would be much
-faster that way. I think the best use-case for this is geospatial
-analysis, but that might benefit from a different implementation.
-Mitchell’s best-candidate algorithm can be used to generate poisson disc
-distribution on a sphere. If you want to contribute or you find a bug,
-please open an issue or submit a pull request, or contact me on Twitter
+dimensions, but I’ve only implemented it in 2 dimensions. Second, this
+implementation is fast enough for my purposes, but if you wanted to
+speed it up you could re-write it in Rcpp, as it uses lots of for loops,
+it would be much faster that way. Third, I think the best use-case for
+this is geospatial analysis, but that might benefit from a different
+implementation. Mitchell’s best-candidate algorithm can be used to
+generate poisson disc distribution on a sphere, which might be useful
+for geospatial. If you want to contribute or you find a bug, please open
+an issue or submit a pull request. If you like this package, tell me
+about it on Twitter
 <a href="https://twitter.com/W_R_Chase" target="_blank">@W\_R\_Chase</a>.
 
 My to-do list:
 
-  - Write the tests :)
+  - Write more tests :)
   - Implement helper-function to restrict points inside polygon w/
     `mgcv::inSide()`
   - Add travis/appveyor CI

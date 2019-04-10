@@ -52,6 +52,6 @@ I only plan to use this for generative art, but there are some real uses for poi
 
 My to-do list:
 
-- Write the tests :)
+- Write more tests :)
 - Implement helper-function to restrict points inside polygon w/ `mgcv::inSide()`
 - Add travis/appveyor CI
