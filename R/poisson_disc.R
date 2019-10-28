@@ -13,6 +13,7 @@
 #' @param height The canvas height (numeric)
 #' @param min_dist The minimum distance between points (numeric)
 #' @param k Samples to choose before rejection (numeric), this should usually stay at 30
+#' @param init The initial point, if not specified, will be randomly picked, otherwise specify as a numeric vector (x, y)
 #'
 #' @return A data frame with the x and y coordinates of the points.
 #' @export
@@ -22,11 +23,13 @@
 #' pts <- poisson_disc(400, 400, 20)
 #'
 #'
-poisson_disc <- function(width, height, min_dist, k = 30) {
+poisson_disc <- function(width, height, min_dist, k = 30, init = NULL) {
   if(!is.numeric(width)) {stop("width must be a numeric value")}
   if(!is.numeric(height)) {stop("height must be a numeric value")}
   if(!is.numeric(min_dist)) {stop("min_dist must be a numeric value")}
   if(!is.numeric(k)) {stop("k must be a numeric value")}
+  if(!is.null(init) & !is.numeric(init)) {stop("n must be a numeric vector of length 2")}
+  if(!is.null(init) & length(init) != 2) {stop("n must be a numeric vector of length 2")}
 
   #calc dist between 2 points
   #can we remove sqrt? would make it faster
@@ -49,11 +52,18 @@ poisson_disc <- function(width, height, min_dist, k = 30) {
   }
 
   #pick a random point to initialize
-  x <- stats::runif(1, 0, width)
-  y <- stats::runif(1, 0, height)
+  if(is.null(init)) {
+    x <- stats::runif(1, 0, width)
+    y <- stats::runif(1, 0, height)
+    pos_init <- c(x = x, y = y)
+  } else {
+    x <- init[1]
+    y <- init[2]
+    pos_init <- c(x = x, y = y)
+  }
+
   i <- floor(x / w) + 1 #call i the column index
   j <- floor(y / w) + 1 #j is row index
-  pos_init <- c(x = x, y = y)
 
   grid[[(i + j * cols)-cols]] <- pos_init #find the grid index and insert the initial point
   active <- c(active, list(pos_init)) #insert initial point into active list
